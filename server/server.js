@@ -29,8 +29,9 @@ const PORT = process.env.PORT || 5000;
 // Serve frontend in production (or generally serve the built dist folder if it exists)
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('(.*)', (req, res) => {
+app.get('/:any*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
+
 
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
