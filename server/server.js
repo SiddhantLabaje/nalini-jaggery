@@ -7,7 +7,6 @@ require('./config/db');
 
 const app = express();
 
-// Middleware
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
@@ -17,31 +16,25 @@ app.use((req, res, next) => {
   next();
 });
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'Server is running' });
-});
+// Health
+app.get('/api/health', (req, res) =>
+  res.json({ success: true, message: 'Server is running' })
+);
 
-// API Routes
+// API routes
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/leads', require('./routes/leads'));
 app.use('/api/quotes', require('./routes/quotes'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 
-// ================================
-// SERVE FRONTEND (IMPORTANT)
-// ================================
-
-// Serve static files
+// Serve frontend
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// Fix for React Router (latest Express compatible)
-app.get('/:path(*)', (req, res) => {
+// ✅ FINAL FIX (NO ERRORS)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
-
-// ================================
 
 const PORT = process.env.PORT || 5000;
 
