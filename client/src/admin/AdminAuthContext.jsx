@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { adminVerify } from '../api';
 
 const AuthContext = createContext(null);
 
@@ -10,7 +10,7 @@ export function AdminAuthProvider({ children }) {
   // Verify token on mount
   useEffect(() => {
     if (!token) { setChecked(true); return; }
-    axios.post('/api/admin/verify', {}, { headers: { Authorization: `Bearer ${token}` } })
+    adminVerify(token)
       .then(() => setChecked(true))
       .catch(() => { logout(); setChecked(true); });
   }, []);

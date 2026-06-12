@@ -24,6 +24,9 @@ export const placeOrder  = (data) => API.post('/orders', data);
 
 // Admin — auth
 export const adminLogin  = (creds) => API.post('/admin/login', creds);
+export const adminVerify = (token) => API.post('/admin/verify', {}, {
+  headers: { Authorization: `Bearer ${token}` }
+});
 
 // Admin — products
 export const adminGetProducts   = ()         => adminAPI.get('/products/all');

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAdminAuth } from './AdminAuthContext';
+import { adminLogin } from '../api';
 
 export default function AdminLogin() {
   const { login, isLoggedIn } = useAdminAuth();
@@ -23,7 +23,7 @@ export default function AdminLogin() {
     setError('');
     setLoading(true);
     try {
-      const res = await axios.post('/api/admin/login', { username, password });
+      const res = await adminLogin({ username, password });
       if (res.data.success) {
         login(res.data.token);
         navigate('/admin-secret/dashboard', { replace: true });
