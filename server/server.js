@@ -45,7 +45,7 @@ app.use('/api/products', require('./routes/products'));
 app.use('/api/orders',   require('./routes/orders'));
 
 // 404 for unknown API routes
-app.use('/api/*', (req, res) =>
+app.use('/api/(.*)', (req, res) =>
   res.status(404).json({ success: false, message: 'API route not found' })
 );
 
