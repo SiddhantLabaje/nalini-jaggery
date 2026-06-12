@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Topbar from '../components/Topbar';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -65,28 +65,28 @@ export default function Contact() {
             </p>
             <div className="contact-info">
               <div className="contact-item">
-                <div className="contact-icon">Company</div>
+                <div className="contact-icon">🏢</div>
                 <div>
                   <div className="contact-label">Company</div>
                   <div className="contact-value">Klass Exim Corporate Private Limited</div>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">Location</div>
+                <div className="contact-icon">📍</div>
                 <div>
                   <div className="contact-label">Registered Office</div>
                   <div className="contact-value">Navi Mumbai - 400614, Maharashtra, India</div>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">Phone</div>
+                <div className="contact-icon">📞</div>
                 <div>
                   <div className="contact-label">Phone</div>
                   <div className="contact-value">+91-7942715360</div>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">Email</div>
+                <div className="contact-icon">✉️</div>
                 <div>
                   <div className="contact-label">Email</div>
                   <div className="contact-value">info@nalinijaggery.com</div>

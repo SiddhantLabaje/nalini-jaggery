@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: '/api' });
+// In production: VITE_API_URL = https://your-app.onrender.com
+// In development: Vite proxy forwards /api to localhost:5000
+const BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : '/api';
+
+const API = axios.create({ baseURL: BASE });
 
 // Admin API — attaches JWT token from localStorage on every request
-const adminAPI = axios.create({ baseURL: '/api' });
+const adminAPI = axios.create({ baseURL: BASE });
 adminAPI.interceptors.request.use(config => {
   const token = localStorage.getItem('admin_token');
   if (token) config.headers['Authorization'] = `Bearer ${token}`;

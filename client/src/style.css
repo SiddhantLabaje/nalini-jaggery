@@ -168,9 +168,9 @@ section { padding: 5rem 2rem; }
 ───────────────────────────────────────── */
 .topbar {
   background: var(--brown-dark);
-  padding: 16px 2rem;
+  padding: 10px 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   font-size: 13.5px;
   color: rgba(251, 246, 238, 0.8);
@@ -178,69 +178,47 @@ section { padding: 5rem 2rem; }
   position: sticky;
   top: 0;
   z-index: 300;
-}
-
-.topbar-left {
-  display: flex;
-  align-items: center;
-}
-
-.topbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.topbar-logo-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #fff;
-  color: var(--brown-dark);
-  font-weight: 700;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 0 2px rgba(245, 196, 81, 0.6);
-}
-
-.topbar-company {
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-}
-
-.topbar-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: 12.5px;
-  color: rgba(251, 246, 238, 0.75);
-}
-
-.topbar-meta span strong {
-  letter-spacing: 0.06em;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .topbar-pill {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 7px 14px;
   font-size: 13px;
+  font-weight: 500;
   color: #fff;
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.1);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+  gap: 7px;
+  min-height: 34px;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.topbar-pill-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.topbar-pill--whatsapp {
+  border-color: rgba(37, 211, 102, 0.5);
+  background: rgba(37, 211, 102, 0.14);
+  color: #6feaa0;
+}
+
+.topbar-pill--admin {
+  border-color: rgba(245, 196, 81, 0.45);
+  background: rgba(245, 196, 81, 0.12);
+  color: #F5C451;
 }
 
 .topbar-icon {
@@ -250,9 +228,17 @@ section { padding: 5rem 2rem; }
 }
 
 .topbar-pill:hover {
-  background: rgba(245, 196, 81, 0.2);
+  background: rgba(245, 196, 81, 0.18);
+  border-color: rgba(245, 196, 81, 0.5);
+  color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.topbar-pill--whatsapp:hover {
+  background: rgba(37, 211, 102, 0.22);
+  border-color: rgba(37, 211, 102, 0.65);
+  color: #6feaa0;
 }
 
 
@@ -267,7 +253,7 @@ nav {
   justify-content: space-between;
   height: 68px;
   position: sticky;
-  top: 74px;
+  top: 56px;
   z-index: 200;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
 }
@@ -1767,8 +1753,8 @@ footer {
   .footer-grid       { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .contact-grid      { gap: 3rem; }
 
-  /* Topbar: hide company meta on tablet */
-  .topbar-meta { display: none; }
+  /* Topbar: tighten gap on tablet */
+  .topbar-right { gap: 0.4rem; }
 }
 
 
@@ -1784,7 +1770,7 @@ footer {
     gap: 8px;
     align-items: flex-start;
   }
-  .topbar-brand-text { display: none; }
+  .topbar-pill { font-size: 11px; padding: 6px 10px; min-height: 32px; }
   .topbar-right {
     width: 100%;
     justify-content: flex-start;

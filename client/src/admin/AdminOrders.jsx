@@ -27,13 +27,18 @@ export default function AdminOrders() {
   };
 
   const handleExport = () => {
-    const ADMIN_KEY = import.meta.env.VITE_ADMIN_SECRET || 'nalini-admin-2025';
-    fetch('/api/orders/export/csv', { headers: { 'admin-key': ADMIN_KEY } })
-      .then(res => res.blob())
+    const token = localStorage.getItem('admin_token');
+    fetch('/api/orders/export/csv', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Export failed');
+        return res.blob();
+      })
       .then(blob => {
         const url = URL.createObjectURL(blob);
         const a   = document.createElement('a');
-        a.href    = url;
+        a.href     = url;
         a.download = 'orders.csv';
         a.click();
         URL.revokeObjectURL(url);

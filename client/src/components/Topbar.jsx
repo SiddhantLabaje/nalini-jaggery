@@ -11,25 +11,13 @@ const WhatsAppIcon = () => (
 export default function Topbar() {
   return (
     <div className="topbar">
-      <div className="topbar-left">
-        <div className="topbar-brand">
-          <div className="topbar-logo-mark">
-            <img src="https://5.imimg.com/data5/SELLER/Logo/2025/8/535726959/MP/PQ/EU/196886344/logo-vector-copy-90x90.jpg" alt="Klass Exim Logo" style={{width:'100%',height:'100%',objectFit:'cover',borderRadius:'50%'}} />
-          </div>
-          <div className="topbar-brand-text">
-            <div className="topbar-company">Klass Exim Corporate Private Limited</div>
-            <div className="topbar-meta">
-              <span>Navi Mumbai, Thane, Maharashtra</span>
-              <span>• GST No. <strong>27AAICK8476F1Z2</strong></span>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="topbar-right">
-        <a href="https://wa.me/919112658473" target="_blank" rel="noreferrer" className="topbar-pill">
+        <a href="https://wa.me/7666362808" target="_blank" rel="noreferrer" className="topbar-pill topbar-pill--whatsapp">
           <WhatsAppIcon /> WhatsApp
         </a>
-        <a href="tel:+919112658473" className="topbar-pill">📞 Call +91-7942715360</a>
+        <a href="tel:+7666362808" className="topbar-pill">
+          <span className="topbar-pill-icon">📞</span> Call +91-7666362808
+        </a>
         <a
           href="mailto:labajesiddhant07@gmail.com"
           onClick={() => {
@@ -39,15 +27,14 @@ export default function Topbar() {
           }}
           className="topbar-pill"
         >
-          ✉️ Send Email
+          <span className="topbar-pill-icon">✉️</span> Send Email
         </a>
-        <Link
+        {/* <Link
           to="/admin-secret"
-          className="topbar-pill"
-          style={{ background: 'rgba(245,196,81,0.15)', borderColor: 'rgba(245,196,81,0.4)', color: '#F5C451', fontWeight: 500 }}
+          className="topbar-pill topbar-pill--admin"
         >
-          ⚙️ Admin Panel
-        </Link>
+          <span className="topbar-pill-icon">⚙️</span> Admin Panel
+        </Link> */}
       </div>
     </div>
   );

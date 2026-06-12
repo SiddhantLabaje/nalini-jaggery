@@ -29,9 +29,8 @@ export default function Home() {
   return (
     <>
       <SEO 
-        title="Home"
-        description="India's trusted manufacturer of organic, chemical-free jaggery. FSSAI Certified. Bulk supply pan-India."
-        keywords="organic jaggery manufacturer India, pure sugarcane jaggery, chemical free jaggery, zero chemical jaggery, FSSAI certified jaggery"
+        description="India's trusted manufacturer of organic, chemical-free jaggery. FSSAI Certified. Bulk supply pan-India and export. Get a free quote today."
+        keywords="organic jaggery manufacturer India, pure sugarcane jaggery, chemical free jaggery, zero chemical jaggery, FSSAI certified jaggery, bulk jaggery supplier Maharashtra"
         url="/"
         schema={homeSchema}
       />
