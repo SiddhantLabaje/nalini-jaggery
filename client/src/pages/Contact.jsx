@@ -68,7 +68,7 @@ export default function Contact() {
                 <div className="contact-icon">🏢</div>
                 <div>
                   <div className="contact-label">Company</div>
-                  <div className="contact-value">Klass Exim Corporate Private Limited</div>
+                  <div className="contact-value">Nalini Jaggery Private Limited</div>
                 </div>
               </div>
               <div className="contact-item">
@@ -89,7 +89,7 @@ export default function Contact() {
                 <div className="contact-icon">✉️</div>
                 <div>
                   <div className="contact-label">Email</div>
-                  <div className="contact-value">info@nalinijaggery.com</div>
+                  <div className="contact-value">nalinijaggery@gmail.com</div>
                 </div>
               </div>
             </div>

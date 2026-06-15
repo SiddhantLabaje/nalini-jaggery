@@ -12,17 +12,17 @@ export default function Topbar() {
   return (
     <div className="topbar">
       <div className="topbar-right">
-        <a href="https://wa.me/7666362808" target="_blank" rel="noreferrer" className="topbar-pill topbar-pill--whatsapp">
+        <a href="https://wa.me/7942715360" target="_blank" rel="noreferrer" className="topbar-pill topbar-pill--whatsapp">
           <WhatsAppIcon /> WhatsApp
         </a>
-        <a href="tel:+7666362808" className="topbar-pill">
-          <span className="topbar-pill-icon">📞</span> Call +91-7666362808
+        <a href="tel:+91-7942715360" className="topbar-pill">
+          <span className="topbar-pill-icon">📞</span> Call +91-7942715360
         </a>
         <a
           href="mailto:labajesiddhant07@gmail.com"
           onClick={() => {
             setTimeout(() => {
-              window.open("https://mail.google.com/mail/?view=cm&fs=1&to=labajesiddhant07@gmail.com", "_blank");
+              window.open("https://mail.google.com/mail/?view=cm&fs=1&to=nalinijaggery@gmail.com", "_blank");
             }, 500);
           }}
           className="topbar-pill"
