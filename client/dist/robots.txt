@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.nalinijaggery.com/sitemap.xml
+Sitemap: https://nalini-jaggery.vercel.app/sitemap.xml
