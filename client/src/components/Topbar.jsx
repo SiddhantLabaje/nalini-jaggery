@@ -19,7 +19,7 @@ export default function Topbar() {
           <span className="topbar-pill-icon">📞</span> Call +91-7942715360
         </a>
         <a
-          href="mailto:labajesiddhant07@gmail.com"
+          href="mailto:nalinijaggery@gmail.com"
           onClick={() => {
             setTimeout(() => {
               window.open("https://mail.google.com/mail/?view=cm&fs=1&to=nalinijaggery@gmail.com", "_blank");
