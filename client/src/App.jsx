@@ -17,6 +17,8 @@ const AdminDashboard = lazy(() => import('./admin/AdminDashboard'));
 const AdminProducts  = lazy(() => import('./admin/AdminProducts'));
 const ProductForm    = lazy(() => import('./admin/ProductForm'));
 const AdminOrders    = lazy(() => import('./admin/AdminOrders'));
+const AdminQuotes    = lazy(() => import('./admin/AdminQuotes'));
+const AdminLeads     = lazy(() => import('./admin/AdminLeads'));
 
 function PageLoader() {
   return (
@@ -64,6 +66,8 @@ export default function App() {
           <Route path="/admin-secret/products/add"         element={<ProtectedRoute><ProductForm /></ProtectedRoute>} />
           <Route path="/admin-secret/products/edit/:id"    element={<ProtectedRoute><ProductForm /></ProtectedRoute>} />
           <Route path="/admin-secret/orders"               element={<ProtectedRoute><AdminOrders /></ProtectedRoute>} />
+          <Route path="/admin-secret/quotes"               element={<ProtectedRoute><AdminQuotes /></ProtectedRoute>} />
+          <Route path="/admin-secret/leads"                element={<ProtectedRoute><AdminLeads /></ProtectedRoute>} />
         </Routes>
       </Suspense>
     </AdminAuthProvider>

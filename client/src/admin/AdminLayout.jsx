@@ -3,9 +3,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAdminAuth } from './AdminAuthContext';
 
 const NAV = [
-  { to: '/admin-secret/dashboard', label: 'Dashboard',  icon: '📊' },
-  { to: '/admin-secret/products',  label: 'Products',   icon: '📦' },
-  { to: '/admin-secret/orders',    label: 'Orders',     icon: '🛒' },
+  { to: '/admin-secret/dashboard', label: 'Dashboard',   icon: '📊' },
+  { to: '/admin-secret/products',  label: 'Products',    icon: '📦' },
+  { to: '/admin-secret/orders',    label: 'Orders',      icon: '🛒' },
+  { to: '/admin-secret/quotes',    label: 'Quotes',      icon: '📋' },
+  { to: '/admin-secret/leads',     label: 'Contact Us',  icon: '✉️'  },
 ];
 
 export default function AdminLayout({ children }) {

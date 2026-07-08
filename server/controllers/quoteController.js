@@ -23,4 +23,14 @@ const getQuotes = async (req, res) => {
   }
 };
 
-module.exports = { createQuote, getQuotes };
+const updateQuoteStatus = async (req, res) => {
+  try {
+    const quote = await Quote.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
+    if (!quote) return res.status(404).json({ success: false, message: 'Quote not found' });
+    res.json({ success: true, data: quote });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = { createQuote, getQuotes, updateQuoteStatus };

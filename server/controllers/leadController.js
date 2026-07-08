@@ -23,4 +23,14 @@ const getLeads = async (req, res) => {
   }
 };
 
-module.exports = { createLead, getLeads };
+const updateLeadStatus = async (req, res) => {
+  try {
+    const lead = await Lead.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
+    if (!lead) return res.status(404).json({ success: false, message: 'Lead not found' });
+    res.json({ success: true, data: lead });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = { createLead, getLeads, updateLeadStatus };

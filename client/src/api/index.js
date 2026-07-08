@@ -37,3 +37,11 @@ export const adminDeleteProduct = (id)       => adminAPI.delete(`/products/${id}
 // Admin — orders
 export const adminGetOrders    = ()      => adminAPI.get('/orders');
 export const adminUpdateStatus = (id, s) => adminAPI.put(`/orders/${id}/status`, { status: s });
+
+// Admin — quotes
+export const adminGetQuotes       = ()      => adminAPI.get('/quotes');
+export const adminUpdateQuoteStatus = (id, s) => adminAPI.put(`/quotes/${id}/status`, { status: s });
+
+// Admin — leads (contact us)
+export const adminGetLeads       = ()      => adminAPI.get('/leads');
+export const adminUpdateLeadStatus = (id, s) => adminAPI.put(`/leads/${id}/status`, { status: s });
