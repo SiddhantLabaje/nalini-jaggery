@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdminAuth } from './AdminAuthContext';
 import { adminLogin } from '../api';
@@ -7,19 +7,51 @@ export default function AdminLogin() {
   const { login, isLoggedIn } = useAdminAuth();
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError]       = useState('');
-  const [loading, setLoading]   = useState(false);
-  const [showPass, setShowPass] = useState(false);
+  const [username, setUsername]         = useState('');
+  const [password, setPassword]         = useState('');
+  const [error, setError]               = useState('');
+  const [loading, setLoading]           = useState(false);
+  const [showPass, setShowPass]         = useState(false);
+  const [attemptsLeft, setAttemptsLeft] = useState(null); // null = unknown yet
+  const [lockSeconds, setLockSeconds]   = useState(0);    // countdown in seconds
+  const timerRef                        = useRef(null);
+
+  // Start or sync the lockout countdown
+  const startCountdown = (seconds) => {
+    setLockSeconds(seconds);
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setLockSeconds(prev => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          setAttemptsLeft(null);
+          setError('');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  // Clean up timer on unmount
+  useEffect(() => () => clearInterval(timerRef.current), []);
 
   useEffect(() => {
     document.title = 'Admin Login - Nalini Jaggery';
     if (isLoggedIn) navigate('/admin-secret/dashboard', { replace: true });
   }, [isLoggedIn, navigate]);
 
+  const isLocked = lockSeconds > 0;
+
+  const formatTime = (secs) => {
+    const m = Math.floor(secs / 60).toString().padStart(2, '0');
+    const s = (secs % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isLocked) return;
     setError('');
     setLoading(true);
     try {
@@ -31,7 +63,17 @@ export default function AdminLogin() {
         setError(res.data.message || 'Login failed');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid credentials');
+      const data = err.response?.data || {};
+      if (data.locked && data.retryAfter) {
+        startCountdown(data.retryAfter);
+        setAttemptsLeft(0);
+        setError(data.message);
+      } else {
+        if (typeof data.attemptsLeft === 'number') {
+          setAttemptsLeft(data.attemptsLeft);
+        }
+        setError(data.message || 'Invalid credentials');
+      }
     } finally {
       setLoading(false);
     }
@@ -68,8 +110,48 @@ export default function AdminLogin() {
         </h2>
 
         {error && (
-          <div style={{ background: '#ffebee', color: '#c62828', padding: '10px 14px', borderRadius: '8px', marginBottom: '1rem', fontSize: '13.5px' }}>
+          <div style={{
+            background: isLocked ? '#fff3e0' : '#ffebee',
+            color: isLocked ? '#e65100' : '#c62828',
+            padding: '10px 14px',
+            borderRadius: '8px',
+            marginBottom: '1rem',
+            fontSize: '13.5px',
+          }}>
             {error}
+          </div>
+        )}
+
+        {/* Attempts warning (not yet locked) */}
+        {!isLocked && attemptsLeft !== null && attemptsLeft > 0 && (
+          <div style={{
+            background: '#fff8e1',
+            color: '#f57f17',
+            padding: '8px 14px',
+            borderRadius: '8px',
+            marginBottom: '1rem',
+            fontSize: '13px',
+            fontWeight: 500,
+          }}>
+            ⚠️ {attemptsLeft} attempt{attemptsLeft !== 1 ? 's' : ''} remaining before lockout
+          </div>
+        )}
+
+        {/* Lockout countdown banner */}
+        {isLocked && (
+          <div style={{
+            background: '#fbe9e7',
+            color: '#bf360c',
+            padding: '16px 14px',
+            borderRadius: '10px',
+            marginBottom: '1rem',
+            textAlign: 'center',
+            fontSize: '13.5px',
+          }}>
+            <div style={{ fontSize: '2rem', fontWeight: 700, letterSpacing: '2px', color: '#e53935' }}>
+              {formatTime(lockSeconds)}
+            </div>
+            <div style={{ marginTop: '4px' }}>Login locked. Try again after the timer expires.</div>
           </div>
         )}
 
@@ -118,14 +200,14 @@ export default function AdminLogin() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || isLocked}
             style={{
-              background: loading ? '#a0856a' : '#4A2E0A',
+              background: (loading || isLocked) ? '#a0856a' : '#4A2E0A',
               color: '#F5C451',
               padding: '13px',
               borderRadius: '10px',
               border: 'none',
-              cursor: loading ? 'not-allowed' : 'pointer',
+              cursor: (loading || isLocked) ? 'not-allowed' : 'pointer',
               fontSize: '15px',
               fontWeight: 600,
               fontFamily: 'inherit',
@@ -133,7 +215,7 @@ export default function AdminLogin() {
               transition: 'background 0.2s',
             }}
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Signing in...' : isLocked ? `Locked (${formatTime(lockSeconds)})` : 'Sign In'}
           </button>
         </form>
 
